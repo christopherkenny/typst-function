@@ -1,0 +1,18 @@
+---
+title: "typst-function Example"
+format: typst
+filters:
+  - typst-function
+---
+
+## Heading
+
+This filter adds formatting to heading text.
+
+```{=typst}
+#show enum: set block(fill: luma(230))
+```
+
+::: {.enum}
+okay
+:::
