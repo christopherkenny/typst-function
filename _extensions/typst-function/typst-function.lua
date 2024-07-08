@@ -91,7 +91,32 @@ local function writeFunctions(el)
   end
 end
 
+local function writeSpanFunctions(el)
+  if quarto.doc.is_format('typst') then
+    for k, v in pairs(classFunctions) do
+      if el.attr.classes:includes(k) then
+        local beginFunc = '#' .. k
+        local args = el.attr.attributes['arguments']
+
+        if args then
+          beginFunc = beginFunc .. '(' .. args .. ')'
+        end
+
+        beginFunc = beginFunc .. '['
+        local endFunc = ']'
+        local blocks = el.content
+
+        table.insert(blocks, 1, pandoc.RawInline('typst', beginFunc))
+        table.insert(blocks, pandoc.RawInline('typst', endFunc))
+
+        return blocks
+      end
+    end
+  end
+end
+
 return {
   { Meta = readFunctions },
-  { Div = writeFunctions }
+  { Div = writeFunctions },
+  { Span = writeSpanFunctions }
 }

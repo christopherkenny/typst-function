@@ -27,6 +27,14 @@ this
 :::
 ```
 
+Spans function similarly, so you can style like:
+
+```md
+::: {.align arguments=right}
+other text
+:::
+```
+
 ### Spreading arguments (experimental)
 
 One harder case to work with is when arguments are spread.
@@ -48,8 +56,11 @@ Hi
 
 Another feature is support for linking to arbitrary elements.
 If `label=some-label` is set, then it can be linked using the Typst linking syntax.
+Assuming we have `highlight` listed under `functions:`, we could write:
 
-
+::: {.highlight label=block-highlight}
+Look at how yellow this gets.
+:::
 
 This is not currently a crossref in Quarto's sense.
 Instead, link with the following inline.
@@ -60,6 +71,14 @@ Instead, link with the following inline.
 
 This feature is also experimental and only supported because I have a use case in mind.
 This may be removed or changed in the future, likely to use Quarto-style crossrefs.
+
+You can also use spans here, which is at least feels less ugly, though is still worse than crossreferences.
+
+```md
+[some linked text]{.link arguments=<block-highlight>}
+```
+
+Note that a "happy" solution to linking/references is at the tradeoff of Quarto and Typst, as only floats or built in types can be crossreferenced in Quarto, whereas arbitrary elements can be linked in Typst.
 
 ## Example
 

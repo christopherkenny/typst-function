@@ -2,7 +2,7 @@
 title: "typst-function Example"
 format:
   typst:
-    keep-typ: true
+    keep-typ: false
 filters:
   - typst-function
 functions:
@@ -10,6 +10,7 @@ functions:
   - scale
   - highlight
   - stack
+  - link
 ---
 
 This filter allows you to use Typst functions using divs from Quarto.
@@ -17,7 +18,7 @@ This filter allows you to use Typst functions using divs from Quarto.
 To demonstrate it, let's first use raw Typst to show we can use that to set up functions and other rules.
 
 ```{=typst}
-#show "Typst": set text(fill: gradient.radial(..color.map.rainbow))
+#show "Typst": set text(fill: gradient.linear(..color.map.rainbow))
 ```
 
 You can do things just using raw Typst.
@@ -60,3 +61,17 @@ This filter *experimentally* supports spreading arguments. This will place the b
 ::: {.stack arguments="dir: ltr, spacing:1fr, ..range(16).map(i=>rotate(24deg*i)" spread=true}
 Hi
 :::
+
+Finally, this filter also supports spans. Unlike the `latex-environment`, both spans and divs map onto functions.
+Currently, the *span* approach does not support arguments to `label` or `spread`.
+Please use divs if you need those.
+If you think that spans should support those arguments, please open an issue on GitHub.
+
+These look like this:
+
+[text]{.align arguments=right}
+
+Why do we have this?
+While we have `label`s as Typst labels, we can do links this way.
+
+[The link text]{.link arguments=<block-highlight>}, again to the highlighted text.
