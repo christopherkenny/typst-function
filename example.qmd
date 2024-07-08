@@ -1,18 +1,62 @@
 ---
 title: "typst-function Example"
-format: typst
+format:
+  typst:
+    keep-typ: true
 filters:
   - typst-function
+functions:
+  - align
+  - scale
+  - highlight
+  - stack
 ---
 
-## Heading
+This filter allows you to use Typst functions using divs from Quarto.
 
-This filter adds formatting to heading text.
+To demonstrate it, let's first use raw Typst to show we can use that to set up functions and other rules.
 
 ```{=typst}
-#show enum: set block(fill: luma(230))
+#show "Typst": set text(fill: gradient.radial(..color.map.rainbow))
 ```
 
-::: {.enum}
-okay
+You can do things just using raw Typst.
+
+```{=typst}
+#quote("This just gets passed to Typst directly.")
+```
+
+Then we can introduce a div `.align` which will call `#align()`. To pass it an argument, we use the arugments command.
+
+::: {.align arguments="center"}
+This text gets `center`ed from Typst without breaking things like code processing.
+:::
+
+:::: {.align arguments="right"}
+We can stack the divs too.
+
+::: {.scale arguments="x: -100%"}
+So the inner gets aligned right *and* displays inverted.
+:::
+
+Named arguments are passed using `name: value` syntax.
+
+::::
+
+::: {.some-other-fn}
+This gets placed in a block, since it is in a div. But, it isn't listed in the `functions` key in the metadata, so nothing else changes.
+:::
+
+This filter also supports adding a label to the output, such as below:
+
+::: {.highlight label='tip-highlight'}
+Look at how yellow this gets.
+:::
+
+We can then link to it @tip-highlight.
+
+This filter *experimentally* supports spreading arguments. This will place the block after the last argument and insert
+
+::: {.stack arguments="dir: ltr, spacing:1fr, ..range(16).map(i=>rotate(24deg*i)" spread=true}
+Hi
 :::

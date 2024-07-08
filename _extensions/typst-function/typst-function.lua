@@ -46,29 +46,38 @@ local function readFunctions(meta)
   end
 end
 
-local blki = 0
-
 -- generalizes the AMS template to arbitrary classes using
 -- the latex-environment workflow
 local function writeFunctions(el)
   if quarto.doc.is_format('typst') then
     for k, v in pairs(classFunctions) do
       if el.classes:includes(k) then
-        blki = blki + 1
-        print(blki)
         local beginFunc = '#' .. k
         local args = el.attributes['arguments']
         local spread = el.attributes['spread']
-        print("args:", args)
+
         if args then
-          beginFunc = beginFunc .. '(' .. args .. ')'
+          beginFunc = beginFunc .. '(' .. args
         end
+        if args and (not spread or spread ~= 'true') then
+          beginFunc = beginFunc .. ')'
+        end
+
         beginFunc = beginFunc .. '['
         local blocks = pandoc.List({
           pandoc.RawBlock('typst', beginFunc)
         })
         blocks:extend(el.content)
         blocks = endTypstBlock(blocks)
+
+        if args and spread == 'true' then
+          local n = select(2, string.gsub(args, '%(', "")) - select(2, string.gsub(args, '%)', ""))
+          if n == 0 then
+            blocks:insert(pandoc.RawInline('typst', ')'))
+          else
+            blocks:insert(pandoc.RawInline('typst', '))'))
+          end
+        end
 
         local label = el.attributes['label']
 
