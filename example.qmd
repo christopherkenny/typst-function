@@ -47,13 +47,13 @@ Named arguments are passed using `name: value` syntax.
 This gets placed in a block, since it is in a div. But, it isn't listed in the `functions` key in the metadata, so nothing else changes.
 :::
 
-This filter also supports adding a label to the output, such as below:
+This filter also *experimentally* supports adding a label to the output, such as below:
 
-::: {.highlight label='tip-highlight'}
+::: {.highlight label=block-highlight}
 Look at how yellow this gets.
 :::
 
-We can then link to it @tip-highlight.
+We can then link to it `#link(<block-highlight>)[like so]`{=typst}.
 
 This filter *experimentally* supports spreading arguments. This will place the block after the last argument and insert
 
