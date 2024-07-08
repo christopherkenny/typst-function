@@ -30,9 +30,7 @@ this
 Spans function similarly, so you can style like:
 
 ```md
-::: {.align arguments=right}
-other text
-:::
+[other text]{.align arguments=right}
 ```
 
 ### Spreading arguments (experimental)
