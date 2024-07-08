@@ -1,9 +1,15 @@
 # typst-function Extension For Quarto
 
-`typst-function` is an analogous extension to Quarto's `latex-filter` extension [(quarto-ext/latex-environment)](https://github.com/quarto-ext/latex-environment).
-It allows `divs` to be converted to `typst` functions
+`typst-function` is a designed to be an analogous extension to Quarto's `latex-filter` extension [(quarto-ext/latex-environment)](https://github.com/quarto-ext/latex-environment).
+It allows `divs` and `spans` to be converted to `typst` functions from within Quarto.
+The syntax is similar to `latex-environment`, where you can specify argument's in a document's metadata to control which divs/spans are converted to function calls.
+This uses the `functions` key in the YAML metadata to avoid conflicts with the familiar LaTeX extension.
+
+If you have suggestions or problems, please open an issue.
 
 ## Installing
+
+To add this filter, run:
 
 ```bash
 quarto add christopherkenny/typst-function
@@ -56,9 +62,11 @@ Another feature is support for linking to arbitrary elements.
 If `label=some-label` is set, then it can be linked using the Typst linking syntax.
 Assuming we have `highlight` listed under `functions:`, we could write:
 
+```md
 ::: {.highlight label=block-highlight}
 Look at how yellow this gets.
 :::
+```
 
 This is not currently a crossref in Quarto's sense.
 Instead, link with the following inline.
@@ -76,7 +84,7 @@ You can also use spans here, which is at least feels less ugly, though is still 
 [some linked text]{.link arguments=<block-highlight>}
 ```
 
-Note that a "happy" solution to linking/references is at the tradeoff of Quarto and Typst, as only floats or built in types can be crossreferenced in Quarto, whereas arbitrary elements can be linked in Typst.
+Note that a "happy" solution to linking/references is at the tradeoff of Quarto and Typst currenltly, as only floats or built in types can be crossreferenced in Quarto, whereas arbitrary elements can be linked in Typst.
 
 ## Example
 
