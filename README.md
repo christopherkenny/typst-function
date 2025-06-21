@@ -39,6 +39,17 @@ Spans function similarly, so you can style like:
 [other text]{.align arguments=right}
 ```
 
+These can also be defined within the document in `typst` blocks, if desirable.
+For example, if you include a typst block like:
+
+```typst
+#let highlight-red(body) = highlight(fill: red, body)
+```
+Then you can immediately use the following, if you've included it in the YAML under `functions`:
+
+[wow I'm angry]{.highlight-red}
+
+
 ### Spreading arguments (experimental)
 
 One harder case to work with is when arguments are spread.

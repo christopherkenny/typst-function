@@ -11,6 +11,7 @@ functions:
   - highlight
   - stack
   - link
+  - highlight-red
 ---
 
 This filter allows you to use Typst functions using divs from Quarto.
@@ -75,3 +76,14 @@ Why do we have this?
 While we have `label`s as Typst labels, we can do links this way.
 
 [The link text]{.link arguments=<block-highlight>}, again to the highlighted text.
+
+These can also be defined within the document in `typst` blocks, if desirable.
+They must be defined before they're used
+For example:
+
+```{=typst}
+#let highlight-red(body) = highlight(fill: red, body)
+```
+[wow I'm angry]{.highlight-red}
+
+This is particularly beneficial if you want to repeatedly redefine a function.
